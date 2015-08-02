@@ -21,6 +21,7 @@
 		E53BCE4A1B6BADCF00D107F1 /* google-pin.png in Resources */ = {isa = PBXBuildFile; fileRef = E53BCE491B6BADCF00D107F1 /* google-pin.png */; };
 		E5497C3C1B6C9F9B00B1CFC9 /* InitialInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5497C3B1B6C9F9B00B1CFC9 /* InitialInfoView.swift */; };
 		E5497C3E1B6CA03800B1CFC9 /* Standard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5497C3D1B6CA03800B1CFC9 /* Standard.swift */; };
+		E5B5305C1B6E648100F22745 /* LocationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B5305B1B6E648100F22745 /* LocationsTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		E53BCE491B6BADCF00D107F1 /* google-pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "google-pin.png"; sourceTree = "<group>"; };
 		E5497C3B1B6C9F9B00B1CFC9 /* InitialInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialInfoView.swift; sourceTree = "<group>"; };
 		E5497C3D1B6CA03800B1CFC9 /* Standard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Standard.swift; sourceTree = "<group>"; };
+		E5B5305B1B6E648100F22745 /* LocationsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationsTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				E53BCE201B6BA5D100D107F1 /* InitialViewController.swift */,
+				E5B5305B1B6E648100F22745 /* LocationsTableViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -351,6 +354,7 @@
 			files = (
 				E53BCE211B6BA5D100D107F1 /* InitialViewController.swift in Sources */,
 				E53BCE481B6BAD9A00D107F1 /* Secret.swift in Sources */,
+				E5B5305C1B6E648100F22745 /* LocationsTableViewController.swift in Sources */,
 				E5497C3E1B6CA03800B1CFC9 /* Standard.swift in Sources */,
 				E53BCE441B6BAD6500D107F1 /* InitialView.swift in Sources */,
 				E53BCE1C1B6BA5D100D107F1 /* AppDelegate.swift in Sources */,
@@ -485,6 +489,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Midloc/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -496,6 +501,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Midloc/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

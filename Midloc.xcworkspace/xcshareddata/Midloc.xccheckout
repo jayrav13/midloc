@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>ACF8EFF8-5802-4D25-A6C4-4998E988C494</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Midloc</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>1BB3CD4EFF03F1F67ECFA13D20ED043253571B2E</key>
+		<string>https://github.com/jayrav13/midloc.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Midloc.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>1BB3CD4EFF03F1F67ECFA13D20ED043253571B2E</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/jayrav13/midloc.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>1BB3CD4EFF03F1F67ECFA13D20ED043253571B2E</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>1BB3CD4EFF03F1F67ECFA13D20ED043253571B2E</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Midloc</string>
+		</dict>
+	</array>
+</dict>
+</plist>

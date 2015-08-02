@@ -22,12 +22,14 @@ var manager : CLLocationManager!
 class InitialViewController: UIViewController, CLLocationManagerDelegate, MFMailComposeViewControllerDelegate {
     
     // make GoogleMaps model variable available
-    var gm : GoogleMaps!
+    var gm : GoogleMaps = GoogleMaps()
     
     // Initialize variables to store all location data.
-    var locationData : [Float] = [0.0, 0.0, 0.0, 0.0]
+    var yourLocation : [Float] = [0.0, 0.0]
+    var yourFriendLocation : [Float] = [0.0, 0.0]
     var midpointCoordinates : [Float] = [0.0, 0.0]
     var initView : InitialView!
+    var queries : Int!
     
     // Execute on view load
     override func viewDidLoad() {
@@ -47,22 +49,15 @@ class InitialViewController: UIViewController, CLLocationManagerDelegate, MFMail
         
         // add initView, set button targets
         initView = InitialView(frame: view.frame)
-        view.addSubview(initView)
         initView.yourZipCodeSwitch.addTarget(self, action: "yourZipCodeSwitchPressed:", forControlEvents: UIControlEvents.ValueChanged)
         initView.searchButton.addTarget(self, action: "searchPressed:", forControlEvents: UIControlEvents.TouchUpInside)
         initView.pickerViewButton.addTarget(self, action: "showHidePickerView:", forControlEvents: UIControlEvents.TouchUpInside)
         initView.mainInfoButton.addTarget(self, action: "infoPressed:", forControlEvents: UIControlEvents.TouchUpInside)
         initView.mainEmailButton.addTarget(self, action: "contactUs:", forControlEvents: UIControlEvents.TouchUpInside)
         initView.gs.addTarget(self, action: "showHidePickerView:")
+        view.addSubview(initView)
         
-        gm = GoogleMaps()
-        /*gm.googleMapsRequest([40.0, -74.0], types: "restaurant") { (swiftyJSON) -> Void in
-            print(swiftyJSON)
-        }*/
-        gm.zipToLatitudeLongitude("07470", completion: { (data) -> Void in
-            println(data)
-        })
-        
+        queries = 0
     }
     
     override func didReceiveMemoryWarning() {
@@ -70,10 +65,10 @@ class InitialViewController: UIViewController, CLLocationManagerDelegate, MFMail
         // Dispose of any resources that can be recreated.
     }
     
-    
     /*
      * Email Functions and Controllers
      */
+    // function for email button
     func contactUs(sender: AnyObject) {
         let mailComposerViewController = configuredMailComposeViewController()
         if MFMailComposeViewController.canSendMail() {
@@ -88,14 +83,16 @@ class InitialViewController: UIViewController, CLLocationManagerDelegate, MFMail
         }
     }
     
+    // email error message if email isn't supported
     func showMailErrorMessage() {
         let sendMailErrorAlert = UIAlertView(title: "Cannot Send Email", message: "Please check device configuration and try again. Or report the issue by emailing midlocapp@gmail.com", delegate: self, cancelButtonTitle: "Close")
         sendMailErrorAlert.show()
     }
     
+    // configured MailController that extends the original MailController
     func configuredMailComposeViewController() -> MFMailComposeViewController {
         let mailComposerVC = MFMailComposeViewController()
-        mailComposerVC.mailComposeDelegate = self // Extremely important to set the --mailComposeDelegate-- property, NOT the --delegate-- property
+        mailComposerVC.mailComposeDelegate = self
         
         mailComposerVC.setToRecipients(["midlocapp@gmail.com"])
         mailComposerVC.setSubject("[Midloc] Here's what I think...")
@@ -104,6 +101,7 @@ class InitialViewController: UIViewController, CLLocationManagerDelegate, MFMail
         return mailComposerVC
     }
     
+    // dismisses MailController
     func mailComposeController(controller: MFMailComposeViewController!, didFinishWithResult result: MFMailComposeResult, error: NSError!) {
         controller.dismissViewControllerAnimated(true, completion: { () -> Void in
             self.initView.activityIndicator.stopAnimating()
@@ -111,52 +109,85 @@ class InitialViewController: UIViewController, CLLocationManagerDelegate, MFMail
         })
     }
     
+    /*
+     * Search Functions
+     */
+    
+    // When search is pressed.
+    func searchPressed(sender: AnyObject) {
+        if validateInput(initView.yourZipCode.text) && validateInput(initView.yourFriendZipCode.text) {
+            if(initView.yourZipCode.text == "Current Location") {
+                yourLocation = [Float(manager.location.coordinate.latitude), Float(manager.location.coordinate.longitude)]
+                self.queries = self.queries + 1
+                self.segueToNextViewController()
+            }
+            else {
+                gm.zipToLatitudeLongitude(initView.yourZipCode.text, completion: { (data) -> Void in
+                    self.yourLocation[0] = Float(data["coordinates"]["latitude"].doubleValue)
+                    self.yourLocation[1] = Float(data["coordinates"]["longitude"].doubleValue)
+                    self.queries = self.queries + 1
+                    self.segueToNextViewController()
+                })
+            }
+            
+            gm.zipToLatitudeLongitude(initView.yourFriendZipCode.text, completion: { (data) -> Void in
+                self.yourFriendLocation[0] = Float(data["coordinates"]["latitude"].doubleValue)
+                self.yourFriendLocation[1] = Float(data["coordinates"]["longitude"].doubleValue)
+                self.queries = self.queries + 1
+                self.segueToNextViewController()
+            })
+            
+            
+
+            
+        }
+        else {
+            self.displayAlert("Try Again!", message: "Be sure to use \"Current Location\" or a five digit zip code.", button: "Close")
+        }
+    }
+    
+    // Segue to next ViewController
+    func segueToNextViewController() {
+        if self.queries == 2 {
+            var midpoint : [Float] = self.midpoint(yourLocation, yourFriendCoordinates: yourFriendLocation)
+            gm.googleMapsRequest(midpoint, types: initView.pickerViewData[initView.currentIndex]["value"]!, completion: { (swiftyJSON) -> Void in
+                var ltvc : LocationsTableViewController = LocationsTableViewController()
+                ltvc.swiftyJSON = swiftyJSON
+                var navController : UINavigationController = UINavigationController(rootViewController: ltvc)
+                self.presentViewController(navController, animated: true, completion: { () -> Void in
+                    self.queries = 0
+                    print(swiftyJSON)
+                })
+                
+            })
+            
+        }
+        
+    }
+    
+    /*
+     * Custom Functions
+     */
+    
+    // changes header color (time, etc) to lighter color
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return UIStatusBarStyle.LightContent
     }
     
-    // validate the input in the text fields, return a Boolean variable
+    // Returns true if input appears to be valid, else will return false.
     func validateInput(input : String) -> Bool
     {
-        // if the input is an integer
         if let value = input.toInt()
         {
-            // if the length of the integer is 5 digits
-            // note - this is the length of the text value, not numeric value
-            // to allow for 0's in the first positions
-            if count(input) != 5
-            {
-                // display an error, return false
-                displayAlert("Zip Code", message: "Please enter a five digit Zip Code.", button: "Close")
-                return false
-            }
-                // else, return true
-            else
-            {
-                return true
-            }
+            return (count(input) == 5)
         }
-            // if the value is not an integer
         else
         {
-            // keep in mind that if the text Current Location is in the cell, we're still ok
-            if input != "Current Location"
-            {
-                // display error if the input cell is not a number AND is not "Current Location"
-                // return false
-                displayAlert("Zip Code", message: "Please enter a numeric Zip Code", button: "Close")
-                return false
-            }
-                // else, return true
-            else
-            {
-                return true
-            }
+            return (input == "Current Location")
         }
     }
     
-    // custom functions
-    // displayAlerts
+    //  display a simple alert, handle activityIndicator animation and ignoringInteraction
     func displayAlert(title:String, message:String, button:String)
     {
         let alert = UIAlertView()
@@ -171,21 +202,24 @@ class InitialViewController: UIViewController, CLLocationManagerDelegate, MFMail
         initView.activityIndicator.alpha = 0
         
         // stop ignoring user input attempts.
-        UIApplication.sharedApplication().endIgnoringInteractionEvents()
+        if UIApplication.sharedApplication().isIgnoringInteractionEvents()
+        {
+            UIApplication.sharedApplication().endIgnoringInteractionEvents()
+        }
     }
     
-    // determines midpoint via a very rudamentary method
-    func midpoint(coordinates:[Float]) -> [Float]
+    // Determines midpoint between two coordinates.
+    func midpoint(yourCoordinates:[Float], yourFriendCoordinates:[Float]) -> [Float]
     {
         var returnValue : [Float] = [0.0, 0.0]
         
-        returnValue[0] = (coordinates[0] + coordinates[2]) / 2
-        returnValue[1] = (coordinates[1] + coordinates[3]) / 2
+        returnValue[0] = (yourCoordinates[0] + yourFriendCoordinates[0]) / 2
+        returnValue[1] = (yourCoordinates[1] + yourFriendCoordinates[1]) / 2
         
         return returnValue
     }
     
-    // Enable/disable "Current Location" feature for Your Location.
+    // Action when switch value changes, managing temp value
     func yourZipCodeSwitchPressed(sender: AnyObject) {
         if initView.yourZipCodeSwitch.on
         {
@@ -200,36 +234,26 @@ class InitialViewController: UIViewController, CLLocationManagerDelegate, MFMail
         }
     }
     
-    func searchPressed(sender: AnyObject) {
-        if validateInput(initView.yourZipCode.text) && validateInput(initView.yourFriendZipCode.text) {
-            println(initView.yourZipCode.text)
-            println(initView.yourFriendZipCode.text)
-        }
-    }
     
-    // hide keypad when text box is not being edited
+    
+    /*
+     * Hide text box and pickerView if they are visible
+     */
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+        super.touchesBegan(touches, withEvent: event)
         view.endEditing(true)
         
-        if(initView.pickerView.frame.origin.y + initView.pickerView.frame.height == screenHeight) {
-            UIView.animateWithDuration(0.4, delay: 0.0, options: UIViewAnimationOptions.CurveEaseIn, animations: { () -> Void in
-                
-                self.initView.pickerView.frame = CGRect(x: 0, y: screenHeight + 216.0, width: screenWidth, height: 216.0)
-                
-                }) { (myBool : Bool) -> Void in
-                    
-                    
-            }
+        if(initView.pickerView.frame.origin.y == screenHeight - 216.0) {
+            self.showHidePickerView(self)
         }
-        
-        super.touchesBegan(touches, withEvent: event)
     }
     
-    // animates the PickerView to select venue type
+    /*
+     * Show or Hide pickerView based on current status.
+     */
     func showHidePickerView(sender: AnyObject) {
         
         if (initView.pickerView.frame.origin.y == screenHeight + 216.0) {
-            
             UIView.animateWithDuration(0.25, delay: 0.0, options: UIViewAnimationOptions.CurveEaseIn, animations: { () -> Void in
                 
                 self.initView.pickerView.frame = CGRect(x: 0, y: screenHeight - 216.0, width: screenWidth, height: 216.0)
@@ -239,23 +263,21 @@ class InitialViewController: UIViewController, CLLocationManagerDelegate, MFMail
             }
         }
         else {
-            
             UIView.animateWithDuration(0.4, delay: 0.0, options: UIViewAnimationOptions.CurveEaseIn, animations: { () -> Void in
                 
                 self.initView.pickerView.frame = CGRect(x: 0, y: screenHeight + 216.0, width: screenWidth, height: 216.0)
                 
                 }) { (myBool : Bool) -> Void in
                     
-                    
             }
         }
-        
     }
     
+    /*
+     * Pressed Info Button - displays info about the main controller
+     */
     func infoPressed(sender:AnyObject) {
-        
         var initInfoView : InitialInfoView = InitialInfoView(frame: CGRect(x: 0, y: screenHeight, width: screenWidth, height: screenHeight*2))
-        
         UIView.animateWithDuration(0.25, delay: 0.0, options: UIViewAnimationOptions.CurveEaseIn, animations: { () -> Void in
             
                 initInfoView.frame = self.view.frame
@@ -263,10 +285,7 @@ class InitialViewController: UIViewController, CLLocationManagerDelegate, MFMail
             }) { (myBool : Bool) -> Void in
                 
         }
-        
         view.addSubview(initInfoView)
     }
-    
-    
     
 }
