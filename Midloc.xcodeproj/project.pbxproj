@@ -11,6 +11,7 @@
 		E51209681B6EE15B002CA0D9 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51209671B6EE15B002CA0D9 /* DetailsViewController.swift */; };
 		E512096C1B6EE1BE002CA0D9 /* MessageComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E512096B1B6EE1BE002CA0D9 /* MessageComposer.swift */; };
 		E512096E1B6EE28B002CA0D9 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E512096D1B6EE28B002CA0D9 /* MapViewController.swift */; };
+		E51209701B6EF18B002CA0D9 /* ios in Resources */ = {isa = PBXBuildFile; fileRef = E512096F1B6EF18B002CA0D9 /* ios */; };
 		E536DA7D1B6EA99200240A82 /* pb_google_hs.png in Resources */ = {isa = PBXBuildFile; fileRef = E536DA7C1B6EA99200240A82 /* pb_google_hs.png */; };
 		E536DA7F1B6EC5C500240A82 /* pb_google_ms.png in Resources */ = {isa = PBXBuildFile; fileRef = E536DA7E1B6EC5C500240A82 /* pb_google_ms.png */; };
 		E53BCE1C1B6BA5D100D107F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53BCE1B1B6BA5D100D107F1 /* AppDelegate.swift */; };
@@ -18,12 +19,10 @@
 		E53BCE211B6BA5D100D107F1 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53BCE201B6BA5D100D107F1 /* InitialViewController.swift */; };
 		E53BCE241B6BA5D100D107F1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E53BCE221B6BA5D100D107F1 /* Main.storyboard */; };
 		E53BCE261B6BA5D100D107F1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E53BCE251B6BA5D100D107F1 /* Images.xcassets */; };
-		E53BCE291B6BA5D100D107F1 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E53BCE271B6BA5D100D107F1 /* LaunchScreen.xib */; };
 		E53BCE351B6BA5D200D107F1 /* MidlocTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53BCE341B6BA5D200D107F1 /* MidlocTests.swift */; };
 		E53BCE441B6BAD6500D107F1 /* InitialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53BCE431B6BAD6500D107F1 /* InitialView.swift */; };
 		E53BCE461B6BAD8000D107F1 /* GoogleMaps.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53BCE451B6BAD8000D107F1 /* GoogleMaps.swift */; };
 		E53BCE481B6BAD9A00D107F1 /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53BCE471B6BAD9A00D107F1 /* Secret.swift */; };
-		E53BCE4A1B6BADCF00D107F1 /* google-pin.png in Resources */ = {isa = PBXBuildFile; fileRef = E53BCE491B6BADCF00D107F1 /* google-pin.png */; };
 		E5497C3C1B6C9F9B00B1CFC9 /* InitialInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5497C3B1B6C9F9B00B1CFC9 /* InitialInfoView.swift */; };
 		E5497C3E1B6CA03800B1CFC9 /* Standard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5497C3D1B6CA03800B1CFC9 /* Standard.swift */; };
 		E5B5305C1B6E648100F22745 /* LocationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B5305B1B6E648100F22745 /* LocationsTableViewController.swift */; };
@@ -46,6 +45,7 @@
 		E51209671B6EE15B002CA0D9 /* DetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		E512096B1B6EE1BE002CA0D9 /* MessageComposer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageComposer.swift; sourceTree = "<group>"; };
 		E512096D1B6EE28B002CA0D9 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		E512096F1B6EF18B002CA0D9 /* ios */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ios; sourceTree = "<group>"; };
 		E536DA7C1B6EA99200240A82 /* pb_google_hs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pb_google_hs.png; sourceTree = "<group>"; };
 		E536DA7E1B6EC5C500240A82 /* pb_google_ms.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pb_google_ms.png; sourceTree = "<group>"; };
 		E53BCE161B6BA5D100D107F1 /* Midloc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Midloc.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -55,14 +55,12 @@
 		E53BCE201B6BA5D100D107F1 /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
 		E53BCE231B6BA5D100D107F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E53BCE251B6BA5D100D107F1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		E53BCE281B6BA5D100D107F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		E53BCE2E1B6BA5D200D107F1 /* MidlocTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MidlocTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E53BCE331B6BA5D200D107F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E53BCE341B6BA5D200D107F1 /* MidlocTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MidlocTests.swift; sourceTree = "<group>"; };
 		E53BCE431B6BAD6500D107F1 /* InitialView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialView.swift; sourceTree = "<group>"; };
 		E53BCE451B6BAD8000D107F1 /* GoogleMaps.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleMaps.swift; sourceTree = "<group>"; };
 		E53BCE471B6BAD9A00D107F1 /* Secret.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
-		E53BCE491B6BADCF00D107F1 /* google-pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "google-pin.png"; sourceTree = "<group>"; };
 		E5497C3B1B6C9F9B00B1CFC9 /* InitialInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialInfoView.swift; sourceTree = "<group>"; };
 		E5497C3D1B6CA03800B1CFC9 /* Standard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Standard.swift; sourceTree = "<group>"; };
 		E5B5305B1B6E648100F22745 /* LocationsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationsTableViewController.swift; sourceTree = "<group>"; };
@@ -133,8 +131,8 @@
 				E53BCE3F1B6BABCF00D107F1 /* Views */,
 				E53BCE3E1B6BA5E300D107F1 /* Models */,
 				E53BCE221B6BA5D100D107F1 /* Main.storyboard */,
+				E512096F1B6EF18B002CA0D9 /* ios */,
 				E53BCE251B6BA5D100D107F1 /* Images.xcassets */,
-				E53BCE271B6BA5D100D107F1 /* LaunchScreen.xib */,
 				E53BCE1D1B6BA5D100D107F1 /* Midloc.xcdatamodeld */,
 				E53BCE191B6BA5D100D107F1 /* Supporting Files */,
 			);
@@ -202,7 +200,6 @@
 			children = (
 				E536DA7E1B6EC5C500240A82 /* pb_google_ms.png */,
 				E536DA7C1B6EA99200240A82 /* pb_google_hs.png */,
-				E53BCE491B6BADCF00D107F1 /* google-pin.png */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -267,6 +264,7 @@
 				TargetAttributes = {
 					E53BCE151B6BA5D100D107F1 = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = AB52X29564;
 					};
 					E53BCE2D1B6BA5D200D107F1 = {
 						CreatedOnToolsVersion = 6.4;
@@ -301,8 +299,7 @@
 				E53BCE241B6BA5D100D107F1 /* Main.storyboard in Resources */,
 				E536DA7D1B6EA99200240A82 /* pb_google_hs.png in Resources */,
 				E536DA7F1B6EC5C500240A82 /* pb_google_ms.png in Resources */,
-				E53BCE291B6BA5D100D107F1 /* LaunchScreen.xib in Resources */,
-				E53BCE4A1B6BADCF00D107F1 /* google-pin.png in Resources */,
+				E51209701B6EF18B002CA0D9 /* ios in Resources */,
 				E53BCE261B6BA5D100D107F1 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -411,14 +408,6 @@
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		E53BCE271B6BA5D100D107F1 /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E53BCE281B6BA5D100D107F1 /* Base */,
-			);
-			name = LaunchScreen.xib;
-			sourceTree = "<group>";
-		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -508,6 +497,8 @@
 			baseConfigurationReference = 4EDC5A0C7469031B43019F9C /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Midloc/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -520,6 +511,8 @@
 			baseConfigurationReference = 0CE0E7C618803095ED265083 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Midloc/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

@@ -120,6 +120,8 @@ class InitialViewController: UIViewController, CLLocationManagerDelegate, MFMail
         initView.activityIndicator.alpha = 1
         initView.activityIndicator.startAnimating()
         
+        initView.hidePickerView(self)
+        
         if validateInput(initView.yourZipCode.text) && validateInput(initView.yourFriendZipCode.text) {
             if(initView.yourZipCode.text == "Current Location") {
                 yourLocation = [Float(manager.location.coordinate.latitude), Float(manager.location.coordinate.longitude)]
