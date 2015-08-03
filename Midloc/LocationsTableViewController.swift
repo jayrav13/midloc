@@ -19,7 +19,8 @@ class LocationsTableViewController: UIViewController, UITableViewDataSource, UIT
     var backButton : UIBarButtonItem!
     
     var swiftyJSON : JSON!
-    var locationData : [Float]!
+    var yourLocation : [Float]!
+    var yourFriendLocation : [Float]!
     var midpointCoordinates : [Float]!
     
     override func viewDidLoad() {
@@ -103,12 +104,12 @@ class LocationsTableViewController: UIViewController, UITableViewDataSource, UIT
     // when row is selected, deselect right away and push
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        /*var dvc : DetailsViewController = DetailsViewController()
+        var dvc : DetailsViewController = DetailsViewController()
         dvc.currentJSON = swiftyJSON["results"][indexPath.row]
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
-        self.navigationController?.pushViewController(dvc, animated: true)*/
+        self.navigationController?.pushViewController(dvc, animated: true)
     }
     
     // return count and height in next two functions
@@ -123,12 +124,13 @@ class LocationsTableViewController: UIViewController, UITableViewDataSource, UIT
     // navigate to respective viewcontrollers (via push or present)
     func mapButtonPressed(sender: UIButton!)
     {
-        /*var mvc : MapViewController = MapViewController()
+        var mvc : MapViewController = MapViewController()
         mvc.swiftyJSON = self.swiftyJSON
-        mvc.locationData = self.locationData
+        mvc.yourLocation = self.yourLocation
+        mvc.yourFriendLocation = self.yourFriendLocation
         mvc.midpointCoordinates = self.midpointCoordinates
         
-        self.navigationController?.pushViewController(mvc, animated: true)*/
+        self.navigationController?.pushViewController(mvc, animated: true)
     }
     
     func backButtonPressed(sender: UIButton!)

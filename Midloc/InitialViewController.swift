@@ -115,6 +115,11 @@ class InitialViewController: UIViewController, CLLocationManagerDelegate, MFMail
     
     // When search is pressed.
     func searchPressed(sender: AnyObject) {
+        
+        UIApplication.sharedApplication().beginIgnoringInteractionEvents()
+        initView.activityIndicator.alpha = 1
+        initView.activityIndicator.startAnimating()
+        
         if validateInput(initView.yourZipCode.text) && validateInput(initView.yourFriendZipCode.text) {
             if(initView.yourZipCode.text == "Current Location") {
                 yourLocation = [Float(manager.location.coordinate.latitude), Float(manager.location.coordinate.longitude)]
@@ -137,9 +142,6 @@ class InitialViewController: UIViewController, CLLocationManagerDelegate, MFMail
                 self.segueToNextViewController()
             })
             
-            
-
-            
         }
         else {
             self.displayAlert("Try Again!", message: "Be sure to use \"Current Location\" or a five digit zip code.", button: "Close")
@@ -151,14 +153,23 @@ class InitialViewController: UIViewController, CLLocationManagerDelegate, MFMail
         if self.queries == 2 {
             var midpoint : [Float] = self.midpoint(yourLocation, yourFriendCoordinates: yourFriendLocation)
             gm.googleMapsRequest(midpoint, types: initView.pickerViewData[initView.currentIndex]["value"]!, completion: { (swiftyJSON) -> Void in
-                var ltvc : LocationsTableViewController = LocationsTableViewController()
-                ltvc.swiftyJSON = swiftyJSON
-                var navController : UINavigationController = UINavigationController(rootViewController: ltvc)
-                self.presentViewController(navController, animated: true, completion: { () -> Void in
-                    self.queries = 0
-                    print(swiftyJSON)
-                })
                 
+                if swiftyJSON["results"].count == 0 {
+                    self.displayAlert("No Locations Found.", message: "Try another zip code!\n\nIf you think there's an issue with the app, please email us at:\n\nmidlocapp@gmail.com.\n\nThanks!", button: "Close")
+                }
+                else {
+                    var ltvc : LocationsTableViewController = LocationsTableViewController()
+                    ltvc.swiftyJSON = swiftyJSON
+                    ltvc.yourLocation = self.yourLocation
+                    ltvc.yourFriendLocation = self.yourFriendLocation
+                    ltvc.midpointCoordinates = midpoint
+                    var navController : UINavigationController = UINavigationController(rootViewController: ltvc)
+                    self.presentViewController(navController, animated: true, completion: { () -> Void in
+                        self.initView.activityIndicator.alpha = 0.0
+                        self.initView.activityIndicator.stopAnimating()
+                        self.queries = 0
+                    })
+                }
             })
             
         }
@@ -206,6 +217,7 @@ class InitialViewController: UIViewController, CLLocationManagerDelegate, MFMail
         {
             UIApplication.sharedApplication().endIgnoringInteractionEvents()
         }
+        self.queries = 0
     }
     
     // Determines midpoint between two coordinates.
@@ -243,8 +255,8 @@ class InitialViewController: UIViewController, CLLocationManagerDelegate, MFMail
         super.touchesBegan(touches, withEvent: event)
         view.endEditing(true)
         
-        if(initView.pickerView.frame.origin.y == screenHeight - 216.0) {
-            self.showHidePickerView(self)
+        if(initView.pickerViewIsVisible != nil) {
+            initView.hidePickerView(self)
         }
     }
     
@@ -253,24 +265,16 @@ class InitialViewController: UIViewController, CLLocationManagerDelegate, MFMail
      */
     func showHidePickerView(sender: AnyObject) {
         
-        if (initView.pickerView.frame.origin.y == screenHeight + 216.0) {
-            UIView.animateWithDuration(0.25, delay: 0.0, options: UIViewAnimationOptions.CurveEaseIn, animations: { () -> Void in
-                
-                self.initView.pickerView.frame = CGRect(x: 0, y: screenHeight - 216.0, width: screenWidth, height: 216.0)
-                
-                }) { (myBool : Bool) -> Void in
-                    
-            }
+        initView.yourZipCode.resignFirstResponder()
+        initView.yourFriendZipCode.resignFirstResponder()
+        
+        if (initView.pickerViewIsVisible == true) {
+            initView.hidePickerView(self)
         }
         else {
-            UIView.animateWithDuration(0.4, delay: 0.0, options: UIViewAnimationOptions.CurveEaseIn, animations: { () -> Void in
-                
-                self.initView.pickerView.frame = CGRect(x: 0, y: screenHeight + 216.0, width: screenWidth, height: 216.0)
-                
-                }) { (myBool : Bool) -> Void in
-                    
-            }
+            initView.showPickerView(self)
         }
+        
     }
     
     /*
@@ -287,5 +291,4 @@ class InitialViewController: UIViewController, CLLocationManagerDelegate, MFMail
         }
         view.addSubview(initInfoView)
     }
-    
 }

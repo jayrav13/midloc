@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		BEA9E7563427FC738E6AF046 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6813D7FA0AFE98DD747A7FD5 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		E51209681B6EE15B002CA0D9 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51209671B6EE15B002CA0D9 /* DetailsViewController.swift */; };
+		E512096C1B6EE1BE002CA0D9 /* MessageComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E512096B1B6EE1BE002CA0D9 /* MessageComposer.swift */; };
+		E512096E1B6EE28B002CA0D9 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E512096D1B6EE28B002CA0D9 /* MapViewController.swift */; };
+		E536DA7D1B6EA99200240A82 /* pb_google_hs.png in Resources */ = {isa = PBXBuildFile; fileRef = E536DA7C1B6EA99200240A82 /* pb_google_hs.png */; };
+		E536DA7F1B6EC5C500240A82 /* pb_google_ms.png in Resources */ = {isa = PBXBuildFile; fileRef = E536DA7E1B6EC5C500240A82 /* pb_google_ms.png */; };
 		E53BCE1C1B6BA5D100D107F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53BCE1B1B6BA5D100D107F1 /* AppDelegate.swift */; };
 		E53BCE1F1B6BA5D100D107F1 /* Midloc.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E53BCE1D1B6BA5D100D107F1 /* Midloc.xcdatamodeld */; };
 		E53BCE211B6BA5D100D107F1 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53BCE201B6BA5D100D107F1 /* InitialViewController.swift */; };
@@ -38,6 +43,11 @@
 		0CE0E7C618803095ED265083 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		4EDC5A0C7469031B43019F9C /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		6813D7FA0AFE98DD747A7FD5 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E51209671B6EE15B002CA0D9 /* DetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
+		E512096B1B6EE1BE002CA0D9 /* MessageComposer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageComposer.swift; sourceTree = "<group>"; };
+		E512096D1B6EE28B002CA0D9 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		E536DA7C1B6EA99200240A82 /* pb_google_hs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pb_google_hs.png; sourceTree = "<group>"; };
+		E536DA7E1B6EC5C500240A82 /* pb_google_ms.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pb_google_ms.png; sourceTree = "<group>"; };
 		E53BCE161B6BA5D100D107F1 /* Midloc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Midloc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E53BCE1A1B6BA5D100D107F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E53BCE1B1B6BA5D100D107F1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -159,6 +169,7 @@
 		E53BCE3E1B6BA5E300D107F1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				E512096B1B6EE1BE002CA0D9 /* MessageComposer.swift */,
 				E53BCE451B6BAD8000D107F1 /* GoogleMaps.swift */,
 				E53BCE471B6BAD9A00D107F1 /* Secret.swift */,
 				E5497C3D1B6CA03800B1CFC9 /* Standard.swift */,
@@ -179,7 +190,9 @@
 			isa = PBXGroup;
 			children = (
 				E53BCE201B6BA5D100D107F1 /* InitialViewController.swift */,
+				E512096D1B6EE28B002CA0D9 /* MapViewController.swift */,
 				E5B5305B1B6E648100F22745 /* LocationsTableViewController.swift */,
+				E51209671B6EE15B002CA0D9 /* DetailsViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -187,6 +200,8 @@
 		E53BCE411B6BABEF00D107F1 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				E536DA7E1B6EC5C500240A82 /* pb_google_ms.png */,
+				E536DA7C1B6EA99200240A82 /* pb_google_hs.png */,
 				E53BCE491B6BADCF00D107F1 /* google-pin.png */,
 			);
 			name = Assets;
@@ -284,6 +299,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E53BCE241B6BA5D100D107F1 /* Main.storyboard in Resources */,
+				E536DA7D1B6EA99200240A82 /* pb_google_hs.png in Resources */,
+				E536DA7F1B6EC5C500240A82 /* pb_google_ms.png in Resources */,
 				E53BCE291B6BA5D100D107F1 /* LaunchScreen.xib in Resources */,
 				E53BCE4A1B6BADCF00D107F1 /* google-pin.png in Resources */,
 				E53BCE261B6BA5D100D107F1 /* Images.xcassets in Resources */,
@@ -359,8 +376,11 @@
 				E53BCE441B6BAD6500D107F1 /* InitialView.swift in Sources */,
 				E53BCE1C1B6BA5D100D107F1 /* AppDelegate.swift in Sources */,
 				E53BCE1F1B6BA5D100D107F1 /* Midloc.xcdatamodeld in Sources */,
+				E512096E1B6EE28B002CA0D9 /* MapViewController.swift in Sources */,
 				E5497C3C1B6C9F9B00B1CFC9 /* InitialInfoView.swift in Sources */,
 				E53BCE461B6BAD8000D107F1 /* GoogleMaps.swift in Sources */,
+				E51209681B6EE15B002CA0D9 /* DetailsViewController.swift in Sources */,
+				E512096C1B6EE1BE002CA0D9 /* MessageComposer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

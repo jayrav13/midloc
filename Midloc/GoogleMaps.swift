@@ -32,7 +32,6 @@ class GoogleMaps {
         Alamofire.request(.GET, "https://maps.googleapis.com/maps/api/place/nearbysearch/json", parameters: parameters).responseJSON { (request, response, data, error) -> Void in
             if(error == nil) {
                 if let responseData : AnyObject? = data {
-                    print(request)
                     swiftyJSON = JSON(responseData!)
                     completion(swiftyJSON:swiftyJSON)
                 }

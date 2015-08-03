@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 JRav. All rights reserved.
 //
 
+// CURRENTLY NOT INCLUDED IN THE APP
+
 import UIKit
 
 class InitialInfoView: UIView {

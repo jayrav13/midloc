@@ -11,6 +11,9 @@ import UIKit
 class InitialView: UIView, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate, UIGestureRecognizerDelegate {
     
     // All UI elements.
+    // labels
+    var mainLabel : UILabel!
+    
     // zip code input
     var yourZipCode : UITextField!
     var yourFriendZipCode: UITextField!
@@ -23,11 +26,14 @@ class InitialView: UIView, UIPickerViewDataSource, UIPickerViewDelegate, UITextF
     // UI
     var backgroundView : UIView!
     var toolbar : UIToolbar!
+    var googleImage : UIImage!
+    var googleImageView : UIImageView!
     
     // UX
     var activityIndicator : UIActivityIndicatorView!
     var pickerView : UIPickerView!
     var pickerViewButton : UIButton!
+    var pickerViewIsVisible : Bool!
     
     // gesture
     var gs : UITapGestureRecognizer!
@@ -119,7 +125,7 @@ class InitialView: UIView, UIPickerViewDataSource, UIPickerViewDelegate, UITextF
      */
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        return false
+        return true
     }
     
     /*
@@ -146,13 +152,21 @@ class InitialView: UIView, UIPickerViewDataSource, UIPickerViewDelegate, UITextF
         backgroundView.backgroundColor = UIColor(red: 21.0/255.0, green: 98.0/255.0, blue: 254.0/255.0, alpha: 0.9)
         self.addSubview(backgroundView)
         
+        // mainLabel
+        mainLabel = UILabel(frame: CGRect(x: screenWidth/2 - screenWidth/4, y: backgroundView.bounds.height*(1/16), width: screenWidth/2, height: 100))
+        mainLabel.text = "midloc"
+        mainLabel.font = UIFont(name: "AppleSDGothicNeo-Light", size: 56)
+        mainLabel.textColor = UIColor.whiteColor()
+        mainLabel.textAlignment = NSTextAlignment.Center
+        self.addSubview(mainLabel)
+        
         // searchButton
         searchButton = UIButton()
-        searchButton.frame = CGRect(x: screenWidth/2-75, y: (screenHeight - (screenHeight * 0.35) - 20), width: 150, height: 40)
+        searchButton.frame = CGRect(x: screenWidth/2-screenWidth/4, y: (screenHeight - (screenHeight * 0.35) - 30), width: screenWidth/2, height: 60)
         searchButton.backgroundColor = UIColor(red: 203.0/255.0, green: 5.0/255.0, blue: 0, alpha: 1)
         searchButton.layer.cornerRadius = 5
-        searchButton.setTitle("midloc it", forState: UIControlState.Normal)
-        searchButton.titleLabel!.font = UIFont(name: "AppleSDGothicNeo-Medium", size: 30)
+        searchButton.setTitle("search", forState: UIControlState.Normal)
+        searchButton.titleLabel!.font = UIFont(name: "AppleSDGothicNeo-Medium", size: 36)
         self.addSubview(searchButton)
         
         // activityIndicator
@@ -163,26 +177,28 @@ class InitialView: UIView, UIPickerViewDataSource, UIPickerViewDelegate, UITextF
         self.addSubview(activityIndicator)
         
         // zipCodeSwitch
-        yourZipCodeSwitch = UISwitch(frame: CGRectMake(screenWidth/2 + screenWidth/4 + 10, backgroundView.bounds.height*(4/16) + 5, 0, 40))
+        yourZipCodeSwitch = UISwitch(frame: CGRectMake(screenWidth/2 + screenWidth/4 + 10, backgroundView.bounds.height*(6/16) + 5, 0, 40))
         yourZipCodeSwitch.setOn(true, animated: true)
         self.addSubview(yourZipCodeSwitch)
         
         // yourZipCode text field
-        yourZipCode = UITextField(frame: CGRectMake(screenWidth/2 - screenWidth/4, backgroundView.bounds.height*(4/16), screenWidth * (1/2), 40))
+        yourZipCode = UITextField(frame: CGRectMake(screenWidth/2 - screenWidth/4, backgroundView.bounds.height*(6/16), screenWidth * (1/2), 40))
         yourZipCode.textAlignment = NSTextAlignment.Center
         yourZipCode.borderStyle = UITextBorderStyle.RoundedRect
         yourZipCode.text = "Current Location"
         yourZipCode.font = UIFont(name: "Helvetica", size: 16)
         yourZipCode.enabled = false
         yourZipCode.keyboardType = UIKeyboardType.NumberPad
+        self.yourZipCode.delegate = self
         self.addSubview(yourZipCode)
         
         // yourFriendZipCode text field
-        yourFriendZipCode = UITextField(frame: CGRectMake(screenWidth/2 - screenWidth/4, backgroundView.bounds.height*(7/16), screenWidth * (1/2), 40))
+        yourFriendZipCode = UITextField(frame: CGRectMake(screenWidth/2 - screenWidth/4, backgroundView.bounds.height*(8/16), screenWidth * (1/2), 40))
         yourFriendZipCode.textAlignment = NSTextAlignment.Center
         yourFriendZipCode.borderStyle = UITextBorderStyle.RoundedRect
         yourFriendZipCode.font = UIFont(name: "Helvetica", size: 16)
         yourFriendZipCode.keyboardType = UIKeyboardType.NumberPad
+        self.yourFriendZipCode.delegate = self
         self.addSubview(yourFriendZipCode)
         
         // bottom
@@ -201,19 +217,24 @@ class InitialView: UIView, UIPickerViewDataSource, UIPickerViewDelegate, UITextF
         var items = NSMutableArray()
         items.addObject(emailBarButton)
         items.addObject(flexSpace)
-        items.addObject(infoBarButton)
+        // items.addObject(infoBarButton)
         toolbar.items = items as [AnyObject]
         
         // picker
-        pickerView = UIPickerView(frame: CGRect(x: 0, y: screenHeight + 216.0, width: screenWidth, height: 216.0))
+        pickerView = UIPickerView(frame: CGRect(x: 0, y: screenHeight, width: screenWidth, height: 216.0))
         pickerView.delegate = self
         pickerView.dataSource = self
         pickerView.backgroundColor = UIColor.lightGrayColor()
+        pickerView.alpha = 1.0
+        pickerView.opaque = false
         self.addSubview(pickerView)
         
+        pickerViewIsVisible = false
+        
         // pickerButton
-        pickerViewButton = UIButton(frame: CGRectMake(screenWidth/2 - screenWidth/4, backgroundView.bounds.height*(10/16), screenWidth * (1/2), 40))
-        pickerViewButton.backgroundColor = UIColor.grayColor()
+        pickerViewButton = UIButton.buttonWithType(UIButtonType.System) as! UIButton
+        pickerViewButton.frame = CGRectMake(screenWidth/2 - screenWidth/4, backgroundView.bounds.height*(11/16), screenWidth * (1/2), 40)
+        pickerViewButton.backgroundColor = UIColor.whiteColor()
         pickerViewButton.layer.cornerRadius = 5
         pickerViewButton.titleLabel!.textAlignment = NSTextAlignment.Center
         pickerViewButton.titleLabel!.font = UIFont.boldSystemFontOfSize(16)
@@ -227,7 +248,58 @@ class InitialView: UIView, UIPickerViewDataSource, UIPickerViewDelegate, UITextF
         gs.delegate = self
         
         self.userInteractionEnabled = true
-    
+
+        googleImage = UIImage(named: "pb_google_hs.png")
+        googleImage = imageResize(googleImage, sizeChange: CGSize(width: screenWidth/2, height: ((screenWidth/2)/(googleImage.size.width))*googleImage.size.height))
+        googleImageView = UIImageView()
+        googleImageView.image = googleImage
+        googleImageView.frame = CGRect(x: screenWidth/4, y: screenHeight - 100, width: screenWidth/2, height: googleImage.size.height)
+        self.addSubview(googleImageView)
+        
     }
     
+    func textFieldDidBeginEditing(textField: UITextField) {
+        hidePickerView(self)
+    }
+    
+    func showPickerView(sender: AnyObject) {
+        UIView.animateWithDuration(0.4, delay: 0.0, options: UIViewAnimationOptions.CurveEaseIn, animations: { () -> Void in
+            
+            self.googleImageView.alpha = 0.0
+            self.pickerView.frame = CGRect(x: 0, y: screenHeight - 216.0, width: screenWidth, height: 216.0)
+            
+            }) { (myBool : Bool) -> Void in
+                
+                self.pickerViewIsVisible = true
+                
+        }
+    }
+    
+    func hidePickerView(sender: AnyObject) {
+        UIView.animateWithDuration(0.4, delay: 0.0, options: UIViewAnimationOptions.CurveEaseIn, animations: { () -> Void in
+            
+            self.googleImageView.alpha = 1.0
+            self.pickerView.frame = CGRect(x: 0, y: screenHeight, width: screenWidth, height: 216.0)
+            
+            }) { (myBool : Bool) -> Void in
+                
+                self.pickerViewIsVisible = false
+                
+        }
+    }
+    
+    /*
+     * Resize an image - taken from http://www.jogendra.com/2014/11/image-resize-in-swift-ios8.html
+     */
+    func imageResize (imageObj:UIImage, sizeChange:CGSize)-> UIImage{
+        
+        let hasAlpha = true
+        let scale: CGFloat = 0.0 // Automatically use scale factor of main screen
+        
+        UIGraphicsBeginImageContextWithOptions(sizeChange, !hasAlpha, scale)
+        imageObj.drawInRect(CGRect(origin: CGPointZero, size: sizeChange))
+        
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+        return scaledImage
+    }
 }
