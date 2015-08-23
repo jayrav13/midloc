@@ -10,6 +10,7 @@ import UIKit
 import MessageUI
 import MapKit
 import SwiftyJSON
+import Social
 
 // CircleView class - subclass of UIView - that will draw the circles for Price and Ratings
 class CircleView : UIView
@@ -291,6 +292,21 @@ class DetailsViewController: UIViewController, MKMapViewDelegate {
             
         }
         actionSheetController.addAction(openTextMessage)
+        
+        /*let tweetMessage: UIAlertAction = UIAlertAction(title: "Tweet @midloc!", style: .Default) { (action) -> Void in
+            if SLComposeViewController.isAvailableForServiceType(SLServiceTypeTwitter) {
+                var tweetSheet = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
+                tweetSheet.setInitialText("Visiting " + self.currentJSON["name"].stringValue + " with a friend thanks to @midlocapp!")
+                self.presentViewController(tweetSheet, animated: true, completion: { () -> Void in
+                    
+                })
+            }
+            else {
+                println("Error")
+            }
+        }
+        
+        actionSheetController.addAction(tweetMessage)*/
         
         //Create and add the Cancel action
         let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .Cancel) { action -> Void in

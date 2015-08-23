@@ -293,4 +293,9 @@ class InitialViewController: UIViewController, CLLocationManagerDelegate, MFMail
         }
         view.addSubview(initInfoView)
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        println("Did appear!")
+        self.queries = 0
+    }
 }
